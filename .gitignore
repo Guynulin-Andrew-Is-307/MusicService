@@ -111,7 +111,7 @@ venv.bak/
 
 # static files
 shared/
-static/
+#static/
 imports/
 media/
 
