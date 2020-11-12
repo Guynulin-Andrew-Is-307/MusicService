@@ -22,17 +22,16 @@ class listmusic(View):
         context = {'qun': Song.objects.count(),'sosng': Song.objects.all(), 'user_c': User.objects.count(), 'isauth': request.user.is_authenticated}
         return render(request, 'index.html', context=context)
     def post(self, request, *args, **kwargs):
-        if request.POST.get("sbros") == "1":
+        if request.POST.get("sbros"):
             Song.objects.all().delete()
             User.objects.all().delete()
 
-            userk = User.objects.create_user("Andrew_Guynulin_is407", "multiacc@mail.ru", "1")
-            Song.objects.create(title="Хоп мусорок", artist="Варавайки", path_to_file="Воровайки - Хоп, мусорок.mp3")
+            userk = User.objects.create_user("Andrew_Guynulin_is407", "gaynulin2000@gmail.com", "1")
             nm = Song.objects.create(title="vitality", artist="mittsies-vitality.mp3", path_to_file="mittsies-vitality.mp3")
             nm.favorite_by.add(userk)
 
             # login(request, userk)
-        elif request.POST.get("exit") == "1":
+        elif request.POST.get("exit"):
             logout(request)
         return HttpResponseRedirect(reverse('main'))
 
