@@ -19,7 +19,7 @@ class startmusic(View):
 
 class listmusic(View):
     def get(self, request, *args, **kwargs):
-        context = {'qun': Song.objects.count(),'sosng': Song.objects.all(), 'user_c': User.objects.count(), 'isauth': request.user.is_authenticated}
+        context = {'sosng': Song.objects.all(), 'user_c': User.objects.count(), 'isauth': request.user.is_authenticated}
         return render(request, 'index.html', context=context)
     def post(self, request, *args, **kwargs):
         if request.POST.get("sbros"):

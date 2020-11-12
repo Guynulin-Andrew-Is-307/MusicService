@@ -8,10 +8,10 @@
 </head>
 <body>
     {{spa}}
-	<h1>Песен в библиотеке {{qun}} Пользователей в системе {{ user_c }}</h1>
+	<h1>Песен в библиотеке {{ sosng.count }} Пользователей в системе {{ user_c }}</h1>
     <h2>Вы зашли как {{ user }}</h2>
     {% if isauth %}
-        <form action="{% url 'main' %}" method="post">
+<!--        <form action="{% url 'main' %}" method="post">-->
             {% csrf_token %}
             <input type="hidden" name="exit" value="1">
             <button type="submit">Выйти</button>
