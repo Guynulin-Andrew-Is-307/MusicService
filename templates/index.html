@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href='{% static "test.css" %}' >
+</head>
+<body>
+    {{spa}}
+	<h1>Песен в библиотеке {{qun}} Пользователей в системе {{ user_c }}</h1>
+    <h2>Вы зашли как {{ user }}</h2>
+    {% if isauth %}
+        <form action="{% url 'main' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="exit" value="1">
+            <button type="submit">Выйти</button>
+        </form>
+    {% else %}
+        <a href="{% url 'authorization'%}">Войти</a>
+        <a href="{% url 'registration'%}">Регистрация</a>
+    {% endif %}
+	<p> Если фон розовый, тогда статика работает.</p>
+
+    {% for  song in sosng %}
+    <div>
+    	<a href="{% url 'song' song.id %}">{{ song.artist }} - {{ song.title }}</h4></a>
+	    <div>{{ song.favorite_by.count }} like <br> Loved by: {{ song.favorite_by.all|slice:5|unordered_list }}</div>
+	    <br>
+    </div>
+
+    {% endfor %}
+
+    <form action="{% url 'main' %}" method="post">
+    	{% csrf_token %}
+        <input type="hidden" name="sbros" value="1">
+    	<button type="submit">Удалить всё и сбросить значения до поумолчанию</button>
+    </form>
+    {% if isauth %}
+        <a href="{% url 'addmusic'%}">Добавить свою музыку</a>
+    {% else %}
+        <p>Чтобы добавить свою музыку авторизуйтесь!</p>
+    {% endif %}
+</body>
+</html>

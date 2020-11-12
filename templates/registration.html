@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href='{% static "test.css" %}' >
+</head>
+<body>
+    <a href="{% url 'main' %}">Назад на главную</a>
+
+	<p>{{info}}</p>
+
+    <form action="{% url 'registration' %}" method="post">
+    	{% csrf_token %}
+        <p><b>Регистрация</b><br>
+        <p><b>Логин:</b><br>
+        <input type="text" name="name">
+        <p><b>Пароль:</b><br>
+    	<input type="password" name="password">
+    	<button type="submit">Регистрация</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href='{% static "test.css" %}' >
+</head>
+<body>
+    <a href="{% url 'main' %}"><<Назад на главную</a>
+    <h2>Текущий пользователь {{ user }}</h2>
+	<p> Если фон розовый, тогда статика работает. </p>
+
+
+  <img src="{% static 'tenor.gif' %}">
+    <div>
+    	<h4>{{ song.artist }} - {{ song.title }}</h4>
+	    <audio controls>
+	        <source src="/static/{{ song.path_to_file }}" type="audio/mp3">
+	    </audio>
+    </div>
+    <h4>Нравится {{song.favorite_by.count}} людям</h4>
+    {% if isauth %}
+        {% if user in song.favorite_by.all %}
+            <p>Вы добавили в свои фавориты эту песню!</p>
+        {% else %}
+            <form action="{% url 'add_fov' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="song_id" value="{{ song.id }}">
+                <button type="submit">Add to favorites</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Авторизуйтесь, чтобы добавить песню в фавориты!</p>
+    {% endif %}
+
+</body>
+</html>
